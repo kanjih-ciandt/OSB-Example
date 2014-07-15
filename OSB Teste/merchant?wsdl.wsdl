@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='utf-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ws.camel.kanjih.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="MerchantEndpointService" targetNamespace="http://ws.camel.kanjih.com/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ws.camel.kanjih.com/" elementFormDefault="unqualified" targetNamespace="http://ws.camel.kanjih.com/" version="1.0">
+
+  <xs:element name="create" type="tns:create"></xs:element>
+
+  <xs:element name="createResponse" type="tns:createResponse"></xs:element>
+
+  <xs:complexType name="create">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:merchant"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="merchant">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="mcc" type="xs:long"></xs:element>
+      <xs:element minOccurs="0" name="name" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="number" type="xs:long"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="createResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:merchant"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="createResponse">
+    <wsdl:part element="tns:createResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="create">
+    <wsdl:part element="tns:create" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="MerchantEndpoint">
+    <wsdl:operation name="create">
+      <wsdl:input message="tns:create" name="create">
+    </wsdl:input>
+      <wsdl:output message="tns:createResponse" name="createResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MerchantEndpointServiceSoapBinding" type="tns:MerchantEndpoint">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+    <wsdl:operation name="create">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input name="create">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="createResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MerchantEndpointService">
+    <wsdl:port binding="tns:MerchantEndpointServiceSoapBinding" name="MerchantEndpointPort">
+      <soap:address location="http://172.17.9.80:7011/camel-examples-cxf-wl-0.0.1/ws/merchant"></soap:address>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
